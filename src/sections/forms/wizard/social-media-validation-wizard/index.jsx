@@ -55,7 +55,9 @@ export default function AddSocialMediaPost() {
     try {
       setIsLoading(true);
       console.log('Submitting social media post data:', data);
-      const response = await axiosInstance.post('/api/social-media-posts', data);
+      const response = await axiosInstance.post('/api/social-media-posts', data, {
+        headers: { 'Content-Type': 'application/json' }
+      });
       console.log('response:', response.statusText);
       setErrorMessage('');
     } catch (error) {

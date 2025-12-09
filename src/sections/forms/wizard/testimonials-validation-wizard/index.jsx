@@ -54,12 +54,15 @@ export default function AddTestimonial() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axiosInstance.post('admin/testimonials', data);
+      const response = await axiosInstance.post('/api/testimonials', data, {
+        headers: { 'Content-Type': 'application/json' }
+      });
       console.log('response:', response.statusText);
       setErrorMessage('');
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('Something went wrong!');
+      const errorMsg = error.response?.data?.message || error.response?.data?.error || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
       handleNext();
