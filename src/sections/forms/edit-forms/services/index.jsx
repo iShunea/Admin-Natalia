@@ -63,31 +63,46 @@ export default function EditServicePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setIsLoading(true); // Set loading to true when the request starts
-      console.log('data sent:', data);
-      await axiosInstance.put('/api/admin/edit/services/' + idPage, data);
+      setIsLoading(true);
+      
+      const formData = new FormData();
+      
+      if (data.imageLabelSrc && data.imageLabelSrc instanceof File) {
+        formData.append('imageLabelSrc', data.imageLabelSrc);
+      }
+      if (data.firstIconPath && data.firstIconPath instanceof File) {
+        formData.append('firstIconPath', data.firstIconPath);
+      }
+      if (data.secondIconPath && data.secondIconPath instanceof File) {
+        formData.append('secondIconPath', data.secondIconPath);
+      }
+      if (data.imageTitlePath && data.imageTitlePath instanceof File) {
+        formData.append('imageTitlePath', data.imageTitlePath);
+      }
+      
+      formData.append('id', data.id || '');
+      formData.append('title', data.title || '');
+      formData.append('metaDescription', data.metaDescription || '');
+      formData.append('metaKeywords', data.metaKeywords || '');
+      formData.append('firstIconTitle', data.firstIconTitle || '');
+      formData.append('firstIconDescription', data.firstIconDescription || '');
+      formData.append('secondIconTitle', data.secondIconTitle || '');
+      formData.append('secondIconDescription', data.secondIconDescription || '');
+      formData.append('imageTitle', data.imageTitle || '');
+      formData.append('imageTitleDescription', data.imageTitleDescription || '');
+      formData.append('titleDescription', data.titleDescription || '');
+      
+      const response = await axiosInstance.put('/api/admin/edit/services/' + idPage, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      console.log('response:', response);
       setErrorMessage('');
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-
-      setErrorMessage('Something get wrong!');
+      console.error('Error:', error);
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
-      setIsLoading(false); // Set loading to false after the request completes
+      setIsLoading(false);
       handleNext();
     }
   };

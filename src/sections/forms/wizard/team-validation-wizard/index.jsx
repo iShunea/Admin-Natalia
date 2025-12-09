@@ -63,15 +63,31 @@ export default function AddTeamMember() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axiosInstance.post('/api/team', data);
+      
+      const formData = new FormData();
+      
+      if (data.imageUrl && data.imageUrl instanceof File) {
+        formData.append('image', data.imageUrl);
+      }
+      
+      formData.append('name', data.name || '');
+      formData.append('role', data.role || '');
+      formData.append('bio', data.bio || '');
+      formData.append('orderIndex', data.orderIndex !== undefined ? data.orderIndex : 0);
+      
+      const response = await axiosInstance.post('/api/team', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       console.log('response:', response.statusText);
       setErrorMessage('');
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('Something went wrong!');
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
       handleNext();
+      setData({});
     }
   };
 

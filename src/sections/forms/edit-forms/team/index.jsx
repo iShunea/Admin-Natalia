@@ -63,31 +63,30 @@ export default function EditTeamPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setIsLoading(true); // Set loading to true when the request starts
-      const response = await axiosInstance.put('/api/admin/edit/team/' + idPage, data);
+      setIsLoading(true);
+      
+      const formData = new FormData();
+      
+      if (data.imageUrl && data.imageUrl instanceof File) {
+        formData.append('image', data.imageUrl);
+      }
+      
+      formData.append('name', data.name || '');
+      formData.append('role', data.role || '');
+      formData.append('bio', data.bio || '');
+      formData.append('orderIndex', data.orderIndex !== undefined ? data.orderIndex : 0);
+      
+      const response = await axiosInstance.put('/api/admin/edit/team/' + idPage, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       console.log('response:', response);
       setErrorMessage('');
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-
-      setErrorMessage('Something get wrong!');
+      console.error('Error:', error);
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
-      setIsLoading(false); // Set loading to false after the request completes
+      setIsLoading(false);
       handleNext();
     }
   };

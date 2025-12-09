@@ -62,12 +62,43 @@ export default function AddServicesPages() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axiosInstance.post('/api/services', data);
+      
+      const formData = new FormData();
+      
+      if (data.imageLabelSrc && data.imageLabelSrc instanceof File) {
+        formData.append('imageLabelSrc', data.imageLabelSrc);
+      }
+      if (data.firstIconPath && data.firstIconPath instanceof File) {
+        formData.append('firstIconPath', data.firstIconPath);
+      }
+      if (data.secondIconPath && data.secondIconPath instanceof File) {
+        formData.append('secondIconPath', data.secondIconPath);
+      }
+      if (data.imageTitlePath && data.imageTitlePath instanceof File) {
+        formData.append('imageTitlePath', data.imageTitlePath);
+      }
+      
+      formData.append('id', data.id || '');
+      formData.append('title', data.title || '');
+      formData.append('metaDescription', data.metaDescription || '');
+      formData.append('metaKeywords', data.metaKeywords || '');
+      formData.append('firstIconTitle', data.firstIconTitle || '');
+      formData.append('firstIconDescription', data.firstIconDescription || '');
+      formData.append('secondIconTitle', data.secondIconTitle || '');
+      formData.append('secondIconDescription', data.secondIconDescription || '');
+      formData.append('imageTitle', data.imageTitle || '');
+      formData.append('imageTitleDescription', data.imageTitleDescription || '');
+      formData.append('titleDescription', data.titleDescription || '');
+      
+      const response = await axiosInstance.post('/api/services', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       console.log('response:', response.statusText);
       setErrorMessage('');
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('Something went wrong!');
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
       handleNext();
