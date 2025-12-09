@@ -54,12 +54,14 @@ export default function AddSocialMediaPost() {
     e.preventDefault();
     try {
       setIsLoading(true);
+      console.log('Submitting social media post data:', data);
       const response = await axiosInstance.post('/api/social-media-posts', data);
       console.log('response:', response.statusText);
       setErrorMessage('');
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('Something went wrong!');
+      const errorMsg = error.response?.data?.message || error.response?.data?.error || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
       handleNext();
