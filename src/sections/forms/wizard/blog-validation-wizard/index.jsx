@@ -65,15 +65,61 @@ export default function AddBlogPage() {
       
       const formData = new FormData();
       
-      if (data.titleImagePath) {
+      if (data.titleImagePath && data.titleImagePath instanceof File) {
         formData.append('image', data.titleImagePath);
       }
       
-      Object.keys(data).forEach(key => {
-        if (key !== 'titleImagePath' && data[key] !== null && data[key] !== undefined) {
-          formData.append(key, data[key]);
-        }
-      });
+      formData.append('title', data.blogTitleEn || '');
+      formData.append('titleRo', data.blogTitleRo || '');
+      formData.append('titleRu', data.blogTitleRu || '');
+      
+      const contentEn = [
+        data.blogIntroEn || '',
+        data.firstSubheadingTitleEn ? `\n\n## ${data.firstSubheadingTitleEn}\n${data.firstSubheadingTextEn || ''}` : '',
+        data.secondSubheadingTitleEn ? `\n\n## ${data.secondSubheadingTitleEn}\n${data.secondSubheadingTextEn || ''}` : '',
+        data.thirdSubheadingTitleEn ? `\n\n## ${data.thirdSubheadingTitleEn}\n${data.thirdSubheadingTextEn || ''}` : '',
+        data.conclusionEn ? `\n\n${data.conclusionEn}` : ''
+      ].join('');
+      
+      const contentRo = [
+        data.blogIntroRo || '',
+        data.firstSubheadingTitleRo ? `\n\n## ${data.firstSubheadingTitleRo}\n${data.firstSubheadingTextRo || ''}` : '',
+        data.secondSubheadingTitleRo ? `\n\n## ${data.secondSubheadingTitleRo}\n${data.secondSubheadingTextRo || ''}` : '',
+        data.thirdSubheadingTitleRo ? `\n\n## ${data.thirdSubheadingTitleRo}\n${data.thirdSubheadingTextRo || ''}` : '',
+        data.conclusionRo ? `\n\n${data.conclusionRo}` : ''
+      ].join('');
+      
+      const contentRu = [
+        data.blogIntroRu || '',
+        data.firstSubheadingTitleRu ? `\n\n## ${data.firstSubheadingTitleRu}\n${data.firstSubheadingTextRu || ''}` : '',
+        data.secondSubheadingTitleRu ? `\n\n## ${data.secondSubheadingTitleRu}\n${data.secondSubheadingTextRu || ''}` : '',
+        data.thirdSubheadingTitleRu ? `\n\n## ${data.thirdSubheadingTitleRu}\n${data.thirdSubheadingTextRu || ''}` : '',
+        data.conclusionRu ? `\n\n${data.conclusionRu}` : ''
+      ].join('');
+      
+      formData.append('content', contentEn);
+      formData.append('contentRo', contentRo);
+      formData.append('contentRu', contentRu);
+      
+      formData.append('excerpt', data.metaDescriptionEn || '');
+      formData.append('excerptRo', data.metaDescriptionRo || '');
+      formData.append('excerptRu', data.metaDescriptionRu || '');
+      
+      formData.append('category', data.label || 'General');
+      formData.append('author', 'CristAlex Dent');
+      
+      const slug = data.id ? data.id.replace('Blog/', '') : '';
+      formData.append('slug', slug);
+      
+      formData.append('metaKeywords', data.metaKeywordsEn || '');
+      formData.append('metaKeywordsRo', data.metaKeywordsRo || '');
+      formData.append('metaKeywordsRu', data.metaKeywordsRu || '');
+      
+      formData.append('titleImageAltTextEn', data.titleImageAltTextEn || '');
+      formData.append('titleImageAltTextRo', data.titleImageAltTextRo || '');
+      formData.append('titleImageAltTextRu', data.titleImageAltTextRu || '');
+      
+      formData.append('publishingDate', data.publishingDate || new Date().toISOString());
       
       const response = await axiosInstance.post('/api/blog-posts', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
@@ -82,7 +128,8 @@ export default function AddBlogPage() {
       setErrorMessage('');
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('Something went wrong!');
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || 'Something went wrong!';
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
       handleNext();
