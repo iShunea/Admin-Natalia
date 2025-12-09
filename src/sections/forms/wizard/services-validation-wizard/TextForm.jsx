@@ -20,7 +20,7 @@ import ServiceTemplateDownloader from 'components/services/ServiceTemplateDownlo
 
 const validationSchema = yup.object({
   titleKey: yup.string().required('Title Key is required'),
-  price: yup.string().required('Price is required'),
+  price: yup.string(),
   titleEn: yup.string().required('English title is required'),
   titleRo: yup.string().required('Romanian title is required'),
   titleRu: yup.string().required('Russian title is required'),
@@ -142,7 +142,7 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Stack spacing={1}>
-              <InputLabel>Price *</InputLabel>
+              <InputLabel>Price (optional)</InputLabel>
               <TextField
                 id="price"
                 name="price"
