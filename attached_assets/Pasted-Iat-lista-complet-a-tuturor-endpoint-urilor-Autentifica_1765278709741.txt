@@ -1,0 +1,86 @@
+Iată lista completă a tuturor endpoint-urilor:
+
+Autentificare (/api)
+Endpoint	Metodă	Descriere
+/api/account/login	POST	Autentifică un utilizator cu email și parolă. Returnează un token JWT și datele utilizatorului.
+/api/account/register	POST	Creează un utilizator nou. Doar admini pot accesa acest endpoint.
+/api/account/me	GET	Returnează profilul utilizatorului curent autentificat (necesită token).
+Servicii (/api)
+Endpoint	Metodă	Descriere
+/api/services	GET	Listează toate serviciile oferite (ex: tratamente dentare).
+/api/services	POST	Creează un serviciu nou.
+/api/services/:id	GET	Returnează un serviciu specific după ID.
+/api/services/:id	PUT	Actualizează un serviciu existent.
+/api/services/:id	DELETE	Șterge un serviciu.
+/api/services/other/:id	GET	Returnează toate serviciile exceptând cel cu ID-ul specificat (util pentru "alte servicii").
+/api/admin/services/list	GET	Listă simplificată de servicii pentru panoul admin.
+/api/admin/edit/services/:id	GET	Returnează datele unui serviciu pentru editare în admin.
+/api/admin/edit/services/:id	PUT	Salvează modificările unui serviciu din admin.
+Echipă / Doctori (/api)
+Endpoint	Metodă	Descriere
+/api/team	GET	Listează toți membrii echipei/doctorii.
+/api/team	POST	Adaugă un membru nou în echipă.
+/api/team-members	GET	Listează membrii echipei, sortați după orderIndex.
+/api/team-members/:id	GET	Returnează un membru specific.
+/api/team-members/:id	PUT	Actualizează un membru al echipei.
+/api/team-members/:id	DELETE	Șterge un membru.
+/api/admin/team/list	GET	Listă simplificată pentru admin.
+/api/admin/edit/team/:id	GET	Date pentru editare în admin.
+/api/admin/edit/team/:id	PUT	Salvează modificările din admin.
+Blog (/api)
+Endpoint	Metodă	Descriere
+/api/blogs	GET	Listează toate articolele de blog.
+/api/blogs	POST	Creează un articol nou (cu imagine opțională).
+/api/blogs/:id	GET	Returnează un articol specific.
+/api/blogs/tags	GET	Returnează toate tag-urile/categoriile unice din bloguri.
+/api/admin/blogs/list	GET	Listă simplificată pentru admin.
+/api/admin/edit/blogs/:id	GET	Date articol pentru editare.
+/api/admin/edit/blogs/:id	PUT	Salvează modificările unui articol.
+Oferte / Prețuri (/api)
+Endpoint	Metodă	Descriere
+/api/offers	GET	Listează toate ofertele/planurile de prețuri. Poate filtra după ?status=active.
+/api/offers	POST	Creează o ofertă nouă.
+/api/offers/:id	GET	Returnează o ofertă specifică.
+/api/offers/:id	PUT	Actualizează o ofertă.
+/api/offers/:id	DELETE	Șterge o ofertă.
+Jobs / Cariere (/api)
+Endpoint	Metodă	Descriere
+/api/jobs	GET	Listează toate pozițiile disponibile.
+/api/jobs	POST	Creează un job nou.
+/api/jobs/list	GET	Listă simplificată pentru pagina publică (id, titlu, locație, tip).
+/api/jobs/:id	GET	Returnează detaliile unui job.
+/api/admin/jobs/list	GET	Listă pentru admin.
+/api/admin/edit/jobs/:id	GET	Date job pentru editare.
+/api/admin/edit/jobs/:id	PUT	Salvează modificările.
+Formulare de Contact (/api)
+Endpoint	Metodă	Descriere
+/api/forms/email-notification	POST	Înregistrează un email pentru newsletter/notificări.
+/api/forms/job	POST	Trimite o aplicație pentru un job (cu CV atașat).
+/api/forms/call	POST	Formularul "Solicită un apel" - salvează cererea de contact.
+/api/forms/alert	POST	Formularul de alertă/raportare problemă.
+Custom Forms (/api)
+Endpoint	Metodă	Descriere
+/api/custom-forms	GET	Listează formularele custom create.
+/api/custom-forms	POST	Creează un formular custom nou (cu câmpuri dinamice).
+/api/custom-forms/:id	GET	Returnează un formular specific.
+/api/custom-forms/:id	PUT	Actualizează un formular.
+/api/custom-forms/:id	DELETE	Șterge un formular.
+/api/custom-forms/:id/submit	POST	Trimite date către un formular (pentru vizitatori).
+/api/custom-forms/:id/submissions	GET	Listează toate răspunsurile/trimiterile pentru un formular.
+Social Media Posts (/api)
+Endpoint	Metodă	Descriere
+/api/social-media-posts	GET	Returnează postările active de social media.
+/api/social-media-posts/all	GET	Returnează toate postările (active și inactive).
+/api/social-media-posts	POST	Creează o postare nouă.
+/api/social-media-posts/:id	GET	Returnează o postare specifică.
+/api/social-media-posts/:id	PUT	Actualizează o postare.
+/api/social-media-posts/:id	DELETE	Șterge o postare.
+Works / Portofoliu (/api)
+Endpoint	Metodă	Descriere
+/api/works	GET	Listează toate lucrările din portofoliu.
+/api/works	POST	Adaugă o lucrare nouă.
+/api/works/:id	GET	Returnează o lucrare specifică.
+/api/works/tags	GET	Returnează tag-urile unice din works.
+/api/admin/works/list	GET	Listă pentru admin.
+/api/admin/edit/works/:id	GET	Date pentru editare.
+/api/admin/edit/works/:id	PUT	Salvează modificările.

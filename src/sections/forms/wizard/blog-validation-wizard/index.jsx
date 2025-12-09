@@ -62,7 +62,7 @@ export default function AddBlogPage() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axiosInstance.post('admin/blog-posts', data);
+      const response = await axiosInstance.post('/api/blogs', data);
       console.log('response:', response);
       setErrorMessage('');
     } catch (error) {

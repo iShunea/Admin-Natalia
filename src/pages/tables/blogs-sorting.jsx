@@ -215,7 +215,7 @@ export default function SortingTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const retrieveBlogs = await axiosInstance.get('admin/blog-posts');
+        const retrieveBlogs = await axiosInstance.get('/api/admin/blogs/list');
         setData(Array.isArray(retrieveBlogs.data) ? retrieveBlogs.data : []);
       } catch (error) {
         // Backend returns 404 when no blogs exist - treat as empty list
@@ -236,7 +236,7 @@ export default function SortingTable() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axiosInstance.delete(`admin/blog-posts/${id}`);
+      const response = await axiosInstance.delete(`/api/blogs/${id}`);
       if (response.status === 200 || response.status === 204) {
         // Remove the deleted item from the table
         setData((prevData) => prevData.filter((item) => item.id !== id));
