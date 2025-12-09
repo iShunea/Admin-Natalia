@@ -22,27 +22,31 @@ import DragDropFileUpload from 'components/DragDropFileUpload';
 const validationSchema = yup.object({
   imageLabelSrc: yup
     .mixed()
-    .required('Image is required')
+    .nullable()
     .test('fileType', 'Only image files are allowed', (value) => {
-      return value && value.type && value.type.startsWith('image/');
+      if (!value) return true;
+      return value.type && value.type.startsWith('image/');
     }),
   firstIconPath: yup
     .mixed()
-    .required('First icon is required')
+    .nullable()
     .test('fileType', 'Only image files are allowed', (value) => {
-      return value && value.type && value.type.startsWith('image/');
+      if (!value) return true;
+      return value.type && value.type.startsWith('image/');
     }),
   secondIconPath: yup
     .mixed()
-    .required('Second icon is required')
+    .nullable()
     .test('fileType', 'Only image files are allowed', (value) => {
-      return value && value.type && value.type.startsWith('image/');
+      if (!value) return true;
+      return value.type && value.type.startsWith('image/');
     }),
   imageTitlePath: yup
     .mixed()
-    .required('Title image is required')
+    .nullable()
     .test('fileType', 'Only image files are allowed', (value) => {
-      return value && value.type && value.type.startsWith('image/');
+      if (!value) return true;
+      return value.type && value.type.startsWith('image/');
     })
 });
 
@@ -118,7 +122,7 @@ export default function ImageForm({ data, setData, handleNext, handleBack }) {
                 Back
               </Button>
               <AnimateButton>
-                <Button variant="contained" type="submit" sx={{ my: 3, ml: 1 }} onClick={() => setErrorIndex(1)}>
+                <Button variant="contained" type="submit" sx={{ my: 3, ml: 1 }}>
                   Next
                 </Button>
               </AnimateButton>
@@ -189,5 +193,5 @@ ImageForm.propTypes = {
   data: PropTypes.any,
   setData: PropTypes.func,
   handleNext: PropTypes.func,
-  setErrorIndex: PropTypes.func
+  handleBack: PropTypes.func
 };
