@@ -1,0 +1,256 @@
+{
+    "availableJobs": [
+        {
+            "id": "middle_ui_1",
+            "title": "Middle UX/UI Designer",
+            "date": "2024-07-21",
+            "country": "Moldova · Full-time"
+        }
+    ],
+    "team": [
+        {
+            "id": 0,
+            "fullName": "Alexandru Iaroslavschi",
+            "job": "CEO & Founder",
+            "imageSrc": "/images/alexandru.png",
+            "socialMedia": {
+                "facebook": "https://www.facebook.com",
+                "linkedin": "https://www.linkedin.com/in/iaroslavschi/",
+                "twitter": "https://www.twitter.com"
+            }
+        },
+        {
+            "id": 1,
+            "fullName": "Elena Roșca",
+            "job": "Co-Founder",
+            "imageSrc": "/images/elena.png",
+            "socialMedia": {
+                "facebook": "https://www.facebook.com",
+                "linkedin": "https://www.linkedin.com/in/elena-rosca/",
+                "twitter": "https://www.twitter.com"
+            }
+        },
+        {
+            "id": 2,
+            "fullName": "Camelia Brashovsky",
+            "job": "Social Media Manager",
+            "imageSrc": "/images/camelia.png",
+            "socialMedia": {
+                "facebook": "https://www.facebook.com",
+                "linkedin": "https://www.linkedin.com/in/camelia-brashovsky/",
+                "twitter": "https://www.twitter.com"
+            }
+        },
+        {
+            "id": 3,
+            "fullName": "Nicolae Erhan",
+            "job": "Graphic Designer",
+            "imageSrc": "/images/nicolae.png",
+            "socialMedia": {
+                "facebook": "https://www.facebook.com",
+                "linkedin": "https://www.linkedin.com/in/nicolae-erhan/",
+                "twitter": "https://www.twitter.com"
+            }
+        }
+    ],
+    "services": [
+        {
+            "id": "mobile_application_1",
+            "baseUrl": "/services",
+            "title": "Mobile Applications",
+            "imageLabelSrc": "/images/mobile-apps.png",
+            "firstIconPath": "/images/icon-product.svg",
+            "firstIconTitle": "Premium deliverables",
+            "firstIconDescription": "Our applications always meet the high standards of the market",
+            "secondIconPath": "/images/icon-security.svg",
+            "secondIconTitle": "High level security",
+            "secondIconDescription": "Performance & security testing stands at the core of our solutions",
+            "imageTitlePath": "/images/mob-app-1.png",
+            "imageTitle": "6.6 billion",
+            "imageTitleDescription": "of global smartphone users, marking a 4.9% annual increase",
+            "titleDescription": "Native or cross-browser applications for smartphones and tablets with modern designs and outstanding quality"
+        }
+    ],
+    "articles": [
+        {
+            "id": "nicolae_testemiteanu_1",
+            "title": "New Partnership with Nicolae Testemițanu State University of Medicine and Pharmacy",
+            "baseUrl": "/blogs",
+            "articleTitle": "New Partnership with Nicolae Testemițanu State University of Medicine and Pharmacy",
+            "publishingDate": "October 07, 2022",
+            "label": "partnership",
+            "titleImagePath": "/images/title_image.jpg",
+            "articleIntro": "For athletes, high altitude produces two contradictory effects on performance. For explosive events the reduction in atmospheric pressure means there is less resistance from the atmosphere and the athlete's performance will generally be better at high altitude.",
+            "firstSubheadingTitle": "How to build a loyal community online",
+            "fistSubheadingFirstText": "Physiological respiration involves the mechanisms that ensure that the composition of the functional residual capacity is kept constant, and equilibrates with the gases dissolved in the pulmonary capillary blood, and thus throughout the body. Thus, in precise usage, the words breathing and ventilation are hyponyms, not synonyms, of respiration; but this prescription is not consistently followed, even by most health care providers, because the term respiratory rate (RR) is a well-established term in health care, even though it would need to be consistently replaced with ventilation rate if the precise usage were to be followed. \n\nThe long barrow was built on land previously inhabited in the Mesolithic period. It consisted of a sub-rectangular earthen tumulus, estimated to have been 15 metres (50 feet) in length, with a chamber built from sarsen megaliths on its eastern end. Both inhumed and cremated human remains were placed within this chamber during the Neolithic period, representing at least nine or ten individuals.",
+            "carouselImages": ["/images/image1.jpg", "/images/image2.jpg", "/images/image3.jpg", "/images/image4.jpg"],
+            "firstSubheadingSecondText": "Physical space is often conceived in three linear dimensions, although modern physicists usually consider it, with time, to be part of a boundless four-dimensional continuum known as spacetime. The concept of space is considered to be of fundamental importance to an understanding of the physical universe. However, disagreement continues between philosophers over whether it is itself an entity, a relationship between entities, or part of a conceptual framework.\n\nIn the eighteenth century the German philosopher Immanuel Kant developed a theory of knowledge in which knowledge about space can be both a priori and synthetic. According to Kant, knowledge about space is synthetic, in that statements about space are not simply true by virtue of the meaning of the words in the statement. In his work, Kant rejected the view that space must be either a substance or relation. Instead he came to the conclusion that space and time are not discovered by humans to be objective features of the world, but imposed by us as part of a framework for organizing experience.",
+            "firstSubheadingImage": "/images/image5.jpg",
+            "firstSubheadingImageDescription": "Team of four people sitting together in a meeting room in front of a board",
+            "secondSubheadingTitle": "Helping a local business reinvent itself",
+            "secondSubheadingFirstText": "Maxwell's equations – the foundation of classical electromagnetism – describe light as a wave that moves with a characteristic velocity. The modern view is that light needs no medium of transmission, but Maxwell and his contemporaries were convinced that light waves were propagated in a medium, analogous to sound propagating in air, and ripples propagating on the surface of a pond. This hypothetical medium was called the luminiferous aether, at rest relative to the \"fixed stars\" and through which the Earth moves. Fresnel's partial ether dragging hypothesis ruled out the measurement of first-order (v/c) effects, and although observations of second-order effects (v2/c2) were possible in principle, Maxwell thought they were too small to be detected with then-current technology."
+        }
+    ],
+    "works": [
+        {
+            "id" : "xiaomi_store_1",
+            "titleImagePath": "/images/xiaomi-store-work.png",
+            "imageLabelSrc": "/images/xiaomi-store.png",
+            "workTags": ["enterprise systems", "seo"],
+            "baseUrl": "/works",
+            "title": "Xiaomi Store",
+            "titleParagraph": "One of the leading players on the global market. Moldova did not become an exception to this rule either. The current site needs a fresh and clean look.",
+            "visitWebsiteLink": "https://xiaomistore.md/",
+            "callToActionTitle": "Main challenge",
+            "callToActionParagraph": "There are many e-commerce platforms on the Moldovan market. Some have a wide list of categories and products, others operate with well-structured filtering. Another one keeps the checkout process as fast as possible. Putting it all together and seasoning with the brand of Xiaomi, we get the best solution possible.",
+            "firstColumnProjects": [
+                {
+                    "imagePath": "/images/xiaomi-store-homepage.svg",
+                    "title": "Homepage"
+                },
+                {
+                    "imagePath": "/images/about-xiaomi.svg",
+                    "title": "about company"
+                },
+                {
+                    "imagePath": "/images/device-insurance-xiaomi.svg",
+                    "title": "device insurance"
+                }
+            ],
+            "secondColumnProjects": [
+                {
+                    "imagePath": "/images/xiaomi-subcategories.svg",
+                    "title": "Subcategories"
+                },
+                {
+                    "imagePath": "/images/xiaomi-credit.svg",
+                    "title": "MI Credit"
+                },
+                {
+                    "imagePath": "/images/xiaomi-testimonials.svg",
+                    "title": "Testimonials"
+                },
+                {
+                    "imagePath": "/images/xiaomi-reviews.svg",
+                    "title": "Video reviews"
+                },
+                {
+                    "imagePath": "/images/xiaomi-discount.svg",
+                    "title": "mi discount"
+                },
+                {
+                    "imagePath": "/images/xiaomi-service-center.svg",
+                    "title": "service center"
+                }
+            ],
+            "thirdColumnProjects": [
+                {
+                    "imagePath": "/images/xiaomi-catalog.svg",
+                    "title": "products grid"
+                },
+                {
+                    "imagePath": "/images/xiaomi-compare.svg",
+                    "title": "compare products"
+                },
+                {
+                    "imagePath": "/images/xiaomi-search-results.svg",
+                    "title": "search results"
+                },
+                {
+                    "imagePath": "/images/xiami-article.svg",
+                    "title": "blog article"
+                }
+            ],
+            "fourthColumnProjects": [
+                {
+                    "imagePath": "/images/xiaomi-product.svg",
+                    "title": "Product Page"
+                },
+                {
+                    "imagePath": "/images/xiaomi-blog.svg",
+                    "title": "blog page"
+                },
+                {
+                    "imagePath": "/images/xiaomi-contacts.svg",
+                    "title": "contacts page"
+                },
+                {
+                    "imagePath": "/images/xiaomi-delivery.svg",
+                    "title": "delivery & payment"
+                }
+            ],
+            "review": {
+                "text": "“iShunea is one of our key technology partners; they helped us build and launch two business critical websites. I could not wish for a better partner. Thank you a lot!”",
+                "author": "Andrew Rusnak",
+                "position": "CEO at SRL Mobile Stock",
+                "imageSrc": "/images/rusnak.png"
+            }
+        }
+    ],
+
+    "jobs": [
+        {
+            "id": "middle_ui_1",
+            "jobTitle": "Middle UX/UI Designer",
+            "location": "Moldova",
+            "type": "Full-time",
+            "date": "2023-12-24",
+            "firstSectionHeading": "What you will achieve",
+            "firstSectionList": [
+                "Design product concepts that balance vision, craft, speed, and business potential.",
+                "Craft every detail of new product features, from idea to UX to pixel-perfect execution.",
+                "Run projects end to end with engineers to drive your vision to the ship line.",
+                "Use data and acquired intuition to prioritize, plan, and scope our product roadmap.",
+                "Tell great stories throughout the user lifecycle, and across our site, products and other channels.",
+                "Create new patterns that are intuitive and practical. Evolve our design system as we scale."
+            ],
+            "secondSectionHeading": "Skills you will bring",
+            "secondSectionList": [
+                "You have well-rounded skills and experience to run projects independently end to end.",
+                "You can create clear, intuitive, and visually appealing human interfaces.",
+                "You can untangle vague conceptual problems, and have a sharp intuition for the most accessible mental models and flows, so users can immediately start gaining value out of the product.",
+                "You care about the business needs, implications, and practicality of your designs. You don't get stuck on pretty UI or deep abstractions, and can balance between craft, speed, and the bottom line.",
+                "You have strong beliefs, loosely held. You're a good listener who collaborates well with different stakeholders. You observe and internalize all inputs and feedback to help you reach an optimal decision.",
+                "You like to tell stories using both words and visuals, and strategize the best way to make your point."
+            ],
+            "thirdSectionHeading": "Nice to have",
+            "thirdSectionList": [
+                "You've designed and built great tools with small teams in the past.",
+                "You bring unique strengths and perspectives to the team. We're looking to build a diverse team where our skills and experience can complement each other.",
+                "You've experienced the pain of fragmented tools and information silos created by them, and have a strong urge to fix it."
+            ],
+            "fourthSectionHeading": "What you will get",
+            "fourthSectionList": [
+                "Net salary range **$2000 - $4000**",
+                "Working on international projects with new technologies",
+                "Helpful, friendly, down-to-earth colleagues",
+                "Remote work, in-office or hybrid",
+                "Trainings and career development opportunities",
+                "English language courses",
+                "Team building activities"
+            ]
+        }
+    ],
+    "tags": [
+        {
+            "id": "works",
+            "tagList": [
+                "software development",
+                "mobile applications",
+                "graphic design",
+                "maintenance",
+                "seo",
+                "video security",
+                "enterprise systems"
+            ]
+        },
+        {
+            "id": "articles",
+            "tagList": [
+                "insight",
+                "discount",
+                "partnership"
+            ]
+        }
+    ]
+}

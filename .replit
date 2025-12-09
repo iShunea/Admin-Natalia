@@ -1,0 +1,45 @@
+modules = ["nodejs-20", "web"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Frontend"
+
+[[workflows.workflow]]
+name = "Frontend"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm start"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["npx", "vite", "preview", "--port", "5000", "--host", "0.0.0.0"]
+build = ["npm", "run", "build"]
+
+[userenv]
+
+[userenv.shared]
+VITE_APP_BASE_NAME = "/"
+VITE_APP_API_URL = "https://25c2aff2-d14a-4a7a-9fcd-b80153c140ed-00-1ifb3c0d94b39.picard.replit.dev:3001"
