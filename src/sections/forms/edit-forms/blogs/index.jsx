@@ -64,7 +64,7 @@ export default function EditBlogPage() {
     e.preventDefault();
     try {
       setIsLoading(true); // Set loading to true when the request starts
-      const response = await axiosInstance.put('/api/admin/edit/blogs/' + idPage, data);
+      const response = await axiosInstance.put('/api/blog-posts/' + idPage, data);
       console.log('response:', response);
       setErrorMessage('');
     } catch (error) {
@@ -95,7 +95,7 @@ export default function EditBlogPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const retrieveBlogs = await axiosInstance.get('/api/admin/edit/blogs/' + idPage);
+        const retrieveBlogs = await axiosInstance.get('/api/blog-posts/' + idPage);
         if (retrieveBlogs.status === 200) {
           console.log(retrieveBlogs);
           setData(retrieveBlogs.data);
