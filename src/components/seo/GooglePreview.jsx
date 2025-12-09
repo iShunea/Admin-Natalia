@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-const GooglePreview = ({ title = '', description = '', url = 'https://easyreserv.com' }) => {
-  const displayTitle = title || 'Your Page Title | EasyReserv';
+const GooglePreview = ({ title = '', description = '', url = 'https://cristalexdent.md' }) => {
+  const displayTitle = title || 'Your Page Title | CristalexDent';
   const displayDescription = description || 'Add a meta description to see how it appears in Google search results...';
   const displayUrl = url.replace(/^https?:\/\//, '');
 
