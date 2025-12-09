@@ -76,7 +76,7 @@ export default function EditTeamPage() {
       formData.append('bio', data.bio || '');
       formData.append('orderIndex', data.orderIndex !== undefined ? data.orderIndex : 0);
       
-      const response = await axiosInstance.put('/api/admin/edit/team/' + idPage, formData, {
+      const response = await axiosInstance.put('/api/team-members/' + idPage, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log('response:', response);
@@ -94,7 +94,7 @@ export default function EditTeamPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const retrieveArticles = await axiosInstance.get('/api/admin/edit/team/' + idPage);
+        const retrieveArticles = await axiosInstance.get('/api/team-members/' + idPage);
         if (retrieveArticles.status === 200) {
           console.log(retrieveArticles);
           setData(retrieveArticles.data);
