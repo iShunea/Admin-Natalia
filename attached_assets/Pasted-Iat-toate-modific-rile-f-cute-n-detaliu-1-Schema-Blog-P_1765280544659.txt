@@ -1,0 +1,131 @@
+Iată toate modificările făcute în detaliu:
+
+1. Schema Blog Post (schemas/blog-post.js)
+Am creat/actualizat schema Mongoose pentru a suporta conținut multilingv în 3 limbi (Engleză, Română, Rusă):
+
+Câmpuri pentru imagine principală:
+titleImagePath - calea către imaginea principală (URL R2 sau local)
+titleImageAltTextEn - text alternativ imagine în engleză
+titleImageAltTextRo - text alternativ imagine în română
+titleImageAltTextRu - text alternativ imagine în rusă
+Titlu blog în 3 limbi:
+blogTitleEn - titlul în engleză
+blogTitleRo - titlul în română
+blogTitleRu - titlul în rusă
+Introducere blog în 3 limbi:
+blogIntroEn - introducerea în engleză
+blogIntroRo - introducerea în română
+blogIntroRu - introducerea în rusă
+Primul subtitlu cu text (3 limbi):
+firstSubheadingTitleEn - titlu subtitlu 1 în engleză
+firstSubheadingTitleRo - titlu subtitlu 1 în română
+firstSubheadingTitleRu - titlu subtitlu 1 în rusă
+firstSubheadingTextEn - text subtitlu 1 în engleză
+firstSubheadingTextRo - text subtitlu 1 în română
+firstSubheadingTextRu - text subtitlu 1 în rusă
+Al doilea subtitlu cu text (3 limbi):
+secondSubheadingTitleEn - titlu subtitlu 2 în engleză
+secondSubheadingTitleRo - titlu subtitlu 2 în română
+secondSubheadingTitleRu - titlu subtitlu 2 în rusă
+secondSubheadingTextEn - text subtitlu 2 în engleză
+secondSubheadingTextRo - text subtitlu 2 în română
+secondSubheadingTextRu - text subtitlu 2 în rusă
+Al treilea subtitlu cu text (3 limbi):
+thirdSubheadingTitleEn - titlu subtitlu 3 în engleză
+thirdSubheadingTitleRo - titlu subtitlu 3 în română
+thirdSubheadingTitleRu - titlu subtitlu 3 în rusă
+thirdSubheadingTextEn - text subtitlu 3 în engleză
+thirdSubheadingTextRo - text subtitlu 3 în română
+thirdSubheadingTextRu - text subtitlu 3 în rusă
+Concluzie în 3 limbi:
+conclusionEn - concluzia în engleză
+conclusionRo - concluzia în română
+conclusionRu - concluzia în rusă
+Meta descrieri SEO (3 limbi):
+metaDescriptionEn - meta descriere în engleză
+metaDescriptionRo - meta descriere în română
+metaDescriptionRu - meta descriere în rusă
+Cuvinte cheie SEO (3 limbi):
+metaKeywordsEn - keywords în engleză
+metaKeywordsRo - keywords în română
+metaKeywordsRu - keywords în rusă
+Alte câmpuri:
+id - ID numeric unic (generat automat)
+publishingDate - data publicării
+label - etichetă/categorie
+publishedAt - data publicării efective
+createdAt - data creării
+Câmpuri vechi păstrate pentru compatibilitate:
+title, excerpt, content, author, category, imageUrl - pentru a nu strica datele existente
+2. Endpoint-uri Blog Posts (enpoints/blog-posts.js)
+GET /api/blog-posts
+Returnează toate postările de blog sortate după publishingDate descrescător (cele mai noi primele)
+Returnează toate câmpurile multilingve
+GET /api/blog-posts/:id
+Returnează o singură postare după ID-ul numeric
+Include toate câmpurile multilingve
+POST /api/blog-posts
+Creează o nouă postare de blog
+Acceptă încărcare imagine prin câmpul image (multipart/form-data)
+Încărcare pe Cloudflare R2: Dacă R2 este configurat, imaginea se încarcă în bucket-ul R2 în folderul blog-posts/ cu un nume UUID unic
+Fallback local: Dacă R2 nu e configurat, imaginea se salvează în /images/blog-posts/
+Salvează calea imaginii în ambele câmpuri titleImagePath și imageUrl pentru compatibilitate
+Parsează publishingDate ca obiect Date dacă e furnizată
+Generează automat un ID numeric unic incrementat
+PUT /api/blog-posts/:id
+Actualizează o postare existentă după ID
+Acceptă încărcare imagine nouă (înlocuiește imaginea veche)
+Aceeași logică R2/local ca la POST
+Returnează postarea actualizată
+DELETE /api/blog-posts/:id
+Șterge o postare după ID
+Returnează confirmare de ștergere
+3. Integrare R2 în blog-posts.js
+Am adăugat suport complet pentru Cloudflare R2:
+
+// Încărcare client R2 (opțional)
+let r2Client = null;
+let PutObjectCommand = null;
+try {
+  r2Client = require('../r2-client');
+  PutObjectCommand = require('@aws-sdk/client-s3').PutObjectCommand;
+} catch (error) {
+  console.log('R2 client not available, using local storage');
+}
+
+Configurare Multer:
+Dacă R2 e disponibil: folosește memoryStorage() pentru a păstra fișierul în memorie și a-l trimite la R2
+Dacă R2 nu e disponibil: folosește diskStorage pentru a salva local în /images/blog-posts/
+Funcția uploadToR2:
+Generează un nume de fișier unic cu UUID
+Încarcă fișierul în bucket-ul R2
+Returnează URL-ul public al imaginii
+4. Înregistrare în server.js
+Am adăugat ruta pentru blog posts:
+
+const blogPostsRoutes = require('./enpoints/blog-posts');
+app.use('/api', blogPostsRoutes);
+
+Rutele disponibile:
+
+GET /api/blog-posts - toate postările
+GET /api/blog-posts/:id - o postare
+POST /api/blog-posts - creare
+PUT /api/blog-posts/:id - actualizare
+DELETE /api/blog-posts/:id - ștergere
+5. Folder pentru imagini locale
+Am creat automat directorul /images/blog-posts/ dacă nu există, pentru stocare locală de backup.
+
+Exemplu de utilizare API
+Creare postare nouă:
+curl -X POST https://business.easyreserv.io/api/blog-posts \
+  -F "image=@poza.jpg" \
+  -F "blogTitleEn=English Title" \
+  -F "blogTitleRo=Titlu Românesc" \
+  -F "blogTitleRu=Русский заголовок" \
+  -F "blogIntroEn=English intro text..." \
+  -F "blogIntroRo=Text introductiv în română..." \
+  -F "publishingDate=2025-01-15"
+
+Obținere toate postările:
+curl https://business.easyreserv.io/api/blog-posts

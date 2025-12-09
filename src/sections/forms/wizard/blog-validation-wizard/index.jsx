@@ -69,49 +69,44 @@ export default function AddBlogPage() {
         formData.append('image', data.titleImagePath);
       }
       
-      formData.append('title', data.blogTitleEn || '');
-      formData.append('titleRo', data.blogTitleRo || '');
-      formData.append('titleRu', data.blogTitleRu || '');
+      formData.append('blogTitleEn', data.blogTitleEn || '');
+      formData.append('blogTitleRo', data.blogTitleRo || '');
+      formData.append('blogTitleRu', data.blogTitleRu || '');
       
-      const contentEn = [
-        data.blogIntroEn || '',
-        data.firstSubheadingTitleEn ? `\n\n## ${data.firstSubheadingTitleEn}\n${data.firstSubheadingTextEn || ''}` : '',
-        data.secondSubheadingTitleEn ? `\n\n## ${data.secondSubheadingTitleEn}\n${data.secondSubheadingTextEn || ''}` : '',
-        data.thirdSubheadingTitleEn ? `\n\n## ${data.thirdSubheadingTitleEn}\n${data.thirdSubheadingTextEn || ''}` : '',
-        data.conclusionEn ? `\n\n${data.conclusionEn}` : ''
-      ].join('');
+      formData.append('blogIntroEn', data.blogIntroEn || '');
+      formData.append('blogIntroRo', data.blogIntroRo || '');
+      formData.append('blogIntroRu', data.blogIntroRu || '');
       
-      const contentRo = [
-        data.blogIntroRo || '',
-        data.firstSubheadingTitleRo ? `\n\n## ${data.firstSubheadingTitleRo}\n${data.firstSubheadingTextRo || ''}` : '',
-        data.secondSubheadingTitleRo ? `\n\n## ${data.secondSubheadingTitleRo}\n${data.secondSubheadingTextRo || ''}` : '',
-        data.thirdSubheadingTitleRo ? `\n\n## ${data.thirdSubheadingTitleRo}\n${data.thirdSubheadingTextRo || ''}` : '',
-        data.conclusionRo ? `\n\n${data.conclusionRo}` : ''
-      ].join('');
+      formData.append('firstSubheadingTitleEn', data.firstSubheadingTitleEn || '');
+      formData.append('firstSubheadingTitleRo', data.firstSubheadingTitleRo || '');
+      formData.append('firstSubheadingTitleRu', data.firstSubheadingTitleRu || '');
+      formData.append('firstSubheadingTextEn', data.firstSubheadingTextEn || '');
+      formData.append('firstSubheadingTextRo', data.firstSubheadingTextRo || '');
+      formData.append('firstSubheadingTextRu', data.firstSubheadingTextRu || '');
       
-      const contentRu = [
-        data.blogIntroRu || '',
-        data.firstSubheadingTitleRu ? `\n\n## ${data.firstSubheadingTitleRu}\n${data.firstSubheadingTextRu || ''}` : '',
-        data.secondSubheadingTitleRu ? `\n\n## ${data.secondSubheadingTitleRu}\n${data.secondSubheadingTextRu || ''}` : '',
-        data.thirdSubheadingTitleRu ? `\n\n## ${data.thirdSubheadingTitleRu}\n${data.thirdSubheadingTextRu || ''}` : '',
-        data.conclusionRu ? `\n\n${data.conclusionRu}` : ''
-      ].join('');
+      formData.append('secondSubheadingTitleEn', data.secondSubheadingTitleEn || '');
+      formData.append('secondSubheadingTitleRo', data.secondSubheadingTitleRo || '');
+      formData.append('secondSubheadingTitleRu', data.secondSubheadingTitleRu || '');
+      formData.append('secondSubheadingTextEn', data.secondSubheadingTextEn || '');
+      formData.append('secondSubheadingTextRo', data.secondSubheadingTextRo || '');
+      formData.append('secondSubheadingTextRu', data.secondSubheadingTextRu || '');
       
-      formData.append('content', contentEn);
-      formData.append('contentRo', contentRo);
-      formData.append('contentRu', contentRu);
+      formData.append('thirdSubheadingTitleEn', data.thirdSubheadingTitleEn || '');
+      formData.append('thirdSubheadingTitleRo', data.thirdSubheadingTitleRo || '');
+      formData.append('thirdSubheadingTitleRu', data.thirdSubheadingTitleRu || '');
+      formData.append('thirdSubheadingTextEn', data.thirdSubheadingTextEn || '');
+      formData.append('thirdSubheadingTextRo', data.thirdSubheadingTextRo || '');
+      formData.append('thirdSubheadingTextRu', data.thirdSubheadingTextRu || '');
       
-      formData.append('excerpt', data.metaDescriptionEn || '');
-      formData.append('excerptRo', data.metaDescriptionRo || '');
-      formData.append('excerptRu', data.metaDescriptionRu || '');
+      formData.append('conclusionEn', data.conclusionEn || '');
+      formData.append('conclusionRo', data.conclusionRo || '');
+      formData.append('conclusionRu', data.conclusionRu || '');
       
-      formData.append('category', data.label || 'General');
-      formData.append('author', 'CristAlex Dent');
+      formData.append('metaDescriptionEn', data.metaDescriptionEn || '');
+      formData.append('metaDescriptionRo', data.metaDescriptionRo || '');
+      formData.append('metaDescriptionRu', data.metaDescriptionRu || '');
       
-      const slug = data.id ? data.id.replace('Blog/', '') : '';
-      formData.append('slug', slug);
-      
-      formData.append('metaKeywords', data.metaKeywordsEn || '');
+      formData.append('metaKeywordsEn', data.metaKeywordsEn || '');
       formData.append('metaKeywordsRo', data.metaKeywordsRo || '');
       formData.append('metaKeywordsRu', data.metaKeywordsRu || '');
       
@@ -119,7 +114,8 @@ export default function AddBlogPage() {
       formData.append('titleImageAltTextRo', data.titleImageAltTextRo || '');
       formData.append('titleImageAltTextRu', data.titleImageAltTextRu || '');
       
-      formData.append('publishingDate', data.publishingDate || new Date().toISOString());
+      formData.append('label', data.label || '');
+      formData.append('publishingDate', data.publishingDate || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' }));
       
       const response = await axiosInstance.post('/api/blog-posts', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
