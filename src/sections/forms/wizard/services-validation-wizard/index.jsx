@@ -12,15 +12,18 @@ import Review from './Review';
 import MainCard from 'components/MainCard';
 import AnimateButton from 'components/@extended/AnimateButton';
 import TextForm from './TextForm';
+import ImageForm from './ImageForm';
 import axiosInstance from 'api/axios-instance';
 
-const steps = ['Add Service Info', 'Review'];
+const steps = ['Service Info & SEO', 'Images', 'Review'];
 
 const getStepContent = (step, handleNext, handleBack, setErrorIndex, data, setData) => {
   switch (step) {
     case 0:
       return <TextForm handleNext={handleNext} setErrorIndex={setErrorIndex} data={data} setData={setData} />;
     case 1:
+      return <ImageForm handleNext={handleNext} handleBack={handleBack} data={data} setData={setData} />;
+    case 2:
       return <Review data={data} />;
     default:
       throw new Error('Unknown step');
@@ -55,14 +58,46 @@ export default function AddServicesPages() {
     try {
       setIsLoading(true);
       
-      const payload = {
-        titleKey: data.titleKey,
-        descKey: data.descKey,
-        price: data.price,
-        features: data.features || []
-      };
+      const formData = new FormData();
       
-      const response = await axiosInstance.post('/api/services', payload);
+      if (data.heroImage && data.heroImage instanceof File) {
+        formData.append('heroImage', data.heroImage);
+      }
+      if (data.firstIconPath && data.firstIconPath instanceof File) {
+        formData.append('firstIconPath', data.firstIconPath);
+      }
+      if (data.secondIconPath && data.secondIconPath instanceof File) {
+        formData.append('secondIconPath', data.secondIconPath);
+      }
+      
+      formData.append('titleKey', data.titleKey || '');
+      formData.append('descKey', data.titleKey || '');
+      formData.append('price', data.price || '');
+      
+      formData.append('titleEn', data.titleEn || '');
+      formData.append('titleRo', data.titleRo || '');
+      formData.append('titleRu', data.titleRu || '');
+      formData.append('descriptionEn', data.descriptionEn || '');
+      formData.append('descriptionRo', data.descriptionRo || '');
+      formData.append('descriptionRu', data.descriptionRu || '');
+      
+      formData.append('metaDescriptionEn', data.metaDescriptionEn || '');
+      formData.append('metaDescriptionRo', data.metaDescriptionRo || '');
+      formData.append('metaDescriptionRu', data.metaDescriptionRu || '');
+      formData.append('metaKeywordsEn', data.metaKeywordsEn || '');
+      formData.append('metaKeywordsRo', data.metaKeywordsRo || '');
+      formData.append('metaKeywordsRu', data.metaKeywordsRu || '');
+      
+      const featuresEn = data.featuresEn ? data.featuresEn.split('\n').filter(f => f.trim()) : [];
+      const featuresRo = data.featuresRo ? data.featuresRo.split('\n').filter(f => f.trim()) : [];
+      const featuresRu = data.featuresRu ? data.featuresRu.split('\n').filter(f => f.trim()) : [];
+      formData.append('featuresEn', JSON.stringify(featuresEn));
+      formData.append('featuresRo', JSON.stringify(featuresRo));
+      formData.append('featuresRu', JSON.stringify(featuresRu));
+      
+      const response = await axiosInstance.post('/api/services', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       console.log('response:', response.statusText);
       setErrorMessage('');
     } catch (error) {
@@ -88,7 +123,6 @@ export default function AddServicesPages() {
                 Error
               </Typography>
             );
-
             labelProps.error = true;
           }
 
@@ -103,11 +137,9 @@ export default function AddServicesPages() {
         {activeStep === steps.length ? (
           <>
             {!errorMessage ? (
-              <>
-                <Typography variant="h5" gutterBottom>
-                  Service added successfully!
-                </Typography>
-              </>
+              <Typography variant="h5" gutterBottom>
+                Service added successfully!
+              </Typography>
             ) : (
               <Typography variant="h6" color="error" gutterBottom>
                 {errorMessage}
