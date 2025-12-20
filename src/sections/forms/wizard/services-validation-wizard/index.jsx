@@ -77,9 +77,9 @@ export default function AddServicesPages() {
       formData.append('titleEn', data.titleEn || '');
       formData.append('titleRo', data.titleRo || '');
       formData.append('titleRu', data.titleRu || '');
-      formData.append('descriptionEn', data.descriptionEn || '');
-      formData.append('descriptionRo', data.descriptionRo || '');
-      formData.append('descriptionRu', data.descriptionRu || '');
+      formData.append('descEn', data.descEn || '');
+      formData.append('descRo', data.descRo || '');
+      formData.append('descRu', data.descRu || '');
       
       formData.append('metaDescriptionEn', data.metaDescriptionEn || '');
       formData.append('metaDescriptionRo', data.metaDescriptionRo || '');

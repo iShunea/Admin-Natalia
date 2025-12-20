@@ -134,6 +134,28 @@ const formsTables = {
           icon: icons.reactTables
         }
       ]
+    },
+    {
+      id: 'before-after-management',
+      title: <FormattedMessage id="Before/After Gallery" />,
+      type: 'collapse',
+      icon: icons.wizard,
+      children: [
+        {
+          id: 'add-before-after',
+          title: <FormattedMessage id="Add Before/After" />,
+          type: 'item',
+          url: '/forms/before-after',
+          icon: icons.wizard
+        },
+        {
+          id: 'list-before-after',
+          title: <FormattedMessage id="Before/After List" />,
+          type: 'item',
+          url: '/tables/before-after',
+          icon: icons.reactTables
+        }
+      ]
     }
   ]
 };

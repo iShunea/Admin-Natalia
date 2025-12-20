@@ -16,21 +16,17 @@ export const endpoints = {
 };
 
 export function useGetMenu() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.dashboard, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  });
-
+  // Disabled - no backend endpoint for menu dashboard
+  // Return empty data instead of making API calls
   const memoizedValue = useMemo(
     () => ({
-      menu: data?.dashboard,
-      menuLoading: isLoading,
-      menuError: error,
-      menuValidating: isValidating,
-      menuEmpty: !isLoading && !data?.length
+      menu: null,
+      menuLoading: false,
+      menuError: null,
+      menuValidating: false,
+      menuEmpty: true
     }),
-    [data, error, isLoading, isValidating]
+    []
   );
 
   return memoizedValue;

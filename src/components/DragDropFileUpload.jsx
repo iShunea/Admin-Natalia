@@ -1,9 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Box, Paper, Typography, IconButton, CircularProgress, Grid, FormHelperText } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { getIn } from 'formik';
+import runtimeConfig from 'config/runtime-config';
 
-function DragDropFileUpload({ formik, name }) {
+function DragDropFileUpload({ formik, name, existingImageUrl }) {
   const nameOfValue = getIn(formik.values, name);
   const [dragOver, setDragOver] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -12,8 +14,18 @@ function DragDropFileUpload({ formik, name }) {
   useEffect(() => {
     let objectUrl;
     if (nameOfValue && typeof nameOfValue === 'object' && 'type' in nameOfValue && nameOfValue.type.startsWith('image/')) {
+      // It's a File object
       objectUrl = URL.createObjectURL(nameOfValue);
       setImagePreview(objectUrl);
+    } else if (nameOfValue && typeof nameOfValue === 'string' && nameOfValue.startsWith('/')) {
+      // It's a URL path from the server
+      setImagePreview(runtimeConfig.API_URL + nameOfValue);
+    } else if (existingImageUrl && typeof existingImageUrl === 'string') {
+      // Use existingImageUrl prop if provided
+      const fullUrl = existingImageUrl.startsWith('http')
+        ? existingImageUrl
+        : runtimeConfig.API_URL + existingImageUrl;
+      setImagePreview(fullUrl);
     } else {
       setImagePreview(null);
     }
@@ -23,7 +35,7 @@ function DragDropFileUpload({ formik, name }) {
         URL.revokeObjectURL(objectUrl); // Clean up the URL to free memory
       }
     };
-  }, [nameOfValue]);
+  }, [nameOfValue, existingImageUrl]);
 
   const handleFileChange = useCallback(
     (file) => {
@@ -117,7 +129,26 @@ function DragDropFileUpload({ formik, name }) {
       {imagePreview && (
         <Grid container justifyContent="center" style={{ marginTop: 16 }}>
           <Grid item xs={12} sm={6} md={4}>
-            <Box component="img" src={imagePreview} alt="Image Preview" sx={{ width: '100%', height: 'auto' }} />
+            <Box sx={{ position: 'relative' }}>
+              <Box component="img" src={imagePreview} alt="Image Preview" sx={{ width: '100%', height: 'auto' }} />
+              <IconButton
+                color="error"
+                size="small"
+                onClick={() => {
+                  formik.setFieldValue(name, null);
+                  setImagePreview(null);
+                }}
+                sx={{
+                  position: 'absolute',
+                  top: 8,
+                  right: 8,
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'error.light', color: 'white' }
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Grid>
         </Grid>
       )}

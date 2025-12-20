@@ -19,6 +19,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 
 import { Edit2, Trash } from 'iconsax-react';
 
@@ -33,7 +34,7 @@ import { useNavigate } from 'react-router-dom';
 function ReactTable({ columns, data, onDelete }) {
   const navigate = useNavigate();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-  const [sorting, setSorting] = useState([{ id: 'id', desc: false }]);
+  const [sorting, setSorting] = useState([{ id: 'orderIndex', desc: false }]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
 
@@ -76,10 +77,13 @@ function ReactTable({ columns, data, onDelete }) {
   return (
     <>
       <MainCard
-        title={matchDownSM ? 'Services' : 'Services Table'}
+        title={matchDownSM ? 'Before/After' : 'Before/After Gallery'}
         content={false}
         secondary={
           <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 2 }}>
+            <Button variant="contained" onClick={() => navigate('/forms/before-after')}>
+              Add New
+            </Button>
             <SelectColumnSorting {...{ getState: table.getState, getAllColumns: table.getAllColumns, setSorting }} />
           </Stack>
         }
@@ -132,7 +136,7 @@ function ReactTable({ columns, data, onDelete }) {
                                 size="small"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  navigate(`/forms/edit/services/${row.original._id || row.original.id}`);
+                                  navigate(`/forms/edit/before-after/${row.original._id || row.original.id}`);
                                 }}
                               >
                                 <Edit2 size={18} />
@@ -165,7 +169,7 @@ function ReactTable({ columns, data, onDelete }) {
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete "{itemToDelete?.title}"? This action cannot be undone.
+            Are you sure you want to delete "{itemToDelete?.serviceNameEn}"? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -179,23 +183,23 @@ function ReactTable({ columns, data, onDelete }) {
   );
 }
 
-export default function SortingTable() {
+export default function BeforeAfterSortingTable() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
-      const retrieveServices = await axiosInstance.get('/api/services');
-      if (retrieveServices.status === 200) {
-        setData(retrieveServices.data);
+      const response = await axiosInstance.get('/api/before-after');
+      if (response.status === 200) {
+        setData(response.data);
       } else {
-        console.error('Failed to retrieve services');
+        console.error('Failed to retrieve before/after items');
       }
     } catch (error) {
       if (error.response?.status === 404) {
         setData([]);
       } else {
-        console.error('Error fetching services:', error);
+        console.error('Error fetching before/after items:', error);
       }
     } finally {
       setLoading(false);
@@ -208,25 +212,64 @@ export default function SortingTable() {
 
   const handleDelete = async (id) => {
     try {
-      await axiosInstance.delete(`/api/services/${id}`);
-      console.log('Service deleted successfully');
+      await axiosInstance.delete(`/api/before-after/${id}`);
+      console.log('Before/After item deleted successfully');
       setData((prevData) => prevData.filter((item) => (item._id || item.id) !== id));
     } catch (error) {
-      console.error('Error deleting service:', error);
+      console.error('Error deleting before/after item:', error);
     }
   };
 
   const columns = useMemo(
     () => [
       {
-        header: 'Page Name',
-        accessorKey: 'titleEn',
-        cell: ({ row }) => row.original.titleEn || row.original.titleRo || row.original.titleRu || '-'
+        header: 'Service Name (EN)',
+        accessorKey: 'serviceNameEn'
       },
       {
-        header: 'Page ID',
-        accessorKey: 'id',
-        cell: ({ row }) => row.original._id || row.original.id || '-'
+        header: 'Order',
+        accessorKey: 'orderIndex'
+      },
+      {
+        header: 'Status',
+        accessorKey: 'isActive',
+        cell: ({ row }) => (
+          <Chip
+            label={row.original.isActive ? 'Active' : 'Inactive'}
+            color={row.original.isActive ? 'success' : 'error'}
+            size="small"
+          />
+        )
+      },
+      {
+        header: 'Before Image',
+        accessorKey: 'beforeImageUrl',
+        enableSorting: false,
+        cell: ({ row }) => (
+          row.original.beforeImageUrl ? (
+            <Box
+              component="img"
+              src={row.original.beforeImageUrl}
+              alt="Before"
+              sx={{ width: 60, height: 40, objectFit: 'cover', borderRadius: 1 }}
+            />
+          ) : '-'
+        )
+      },
+      {
+        header: 'After Image',
+        accessorKey: 'afterImageUrl',
+        enableSorting: false,
+        cell: ({ row }) => (
+          row.original.afterImageUrl ? (
+            <Box
+              component="img"
+              src={row.original.afterImageUrl}
+              alt="After"
+              sx={{ width: 60, height: 40, objectFit: 'cover', borderRadius: 1 }}
+            />
+          ) : '-'
+        )
       },
       {
         header: 'Actions',
@@ -245,6 +288,6 @@ export default function SortingTable() {
   return <ReactTable data={data} columns={columns} onDelete={handleDelete} />;
 }
 
-SortingTable.propTypes = { getValue: PropTypes.func };
+BeforeAfterSortingTable.propTypes = { getValue: PropTypes.func };
 
 ReactTable.propTypes = { columns: PropTypes.array, data: PropTypes.array, onDelete: PropTypes.func };

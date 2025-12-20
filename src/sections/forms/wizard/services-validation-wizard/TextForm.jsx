@@ -24,9 +24,9 @@ const validationSchema = yup.object({
   titleEn: yup.string().required('English title is required'),
   titleRo: yup.string().required('Romanian title is required'),
   titleRu: yup.string().required('Russian title is required'),
-  descriptionEn: yup.string().required('English description is required'),
-  descriptionRo: yup.string().required('Romanian description is required'),
-  descriptionRu: yup.string().required('Russian description is required'),
+  descEn: yup.string().required('English description is required'),
+  descRo: yup.string().required('Romanian description is required'),
+  descRu: yup.string().required('Russian description is required'),
   metaDescriptionEn: yup.string().max(160, 'Max 160 characters').required('English meta description is required'),
   metaDescriptionRo: yup.string().max(160, 'Max 160 characters').required('Romanian meta description is required'),
   metaDescriptionRu: yup.string().max(160, 'Max 160 characters').required('Russian meta description is required'),
@@ -48,9 +48,9 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
       titleEn: data.titleEn ?? '',
       titleRo: data.titleRo ?? '',
       titleRu: data.titleRu ?? '',
-      descriptionEn: data.descriptionEn ?? '',
-      descriptionRo: data.descriptionRo ?? '',
-      descriptionRu: data.descriptionRu ?? '',
+      descEn: data.descEn ?? '',
+      descRo: data.descRo ?? '',
+      descRu: data.descRu ?? '',
       metaDescriptionEn: data.metaDescriptionEn ?? '',
       metaDescriptionRo: data.metaDescriptionRo ?? '',
       metaDescriptionRu: data.metaDescriptionRu ?? '',
@@ -73,9 +73,16 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
   });
 
   const handleImport = (importedData) => {
+    // Update parent data
     setData({
       ...data,
       ...importedData
+    });
+    // Also update formik values directly
+    Object.keys(importedData).forEach((key) => {
+      if (formik.values.hasOwnProperty(key)) {
+        formik.setFieldValue(key, importedData[key] || '');
+      }
     });
   };
 
@@ -85,7 +92,7 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
   };
 
   const getDescField = () => {
-    const fieldMap = { en: 'descriptionEn', ro: 'descriptionRo', ru: 'descriptionRu' };
+    const fieldMap = { en: 'descEn', ro: 'descRo', ru: 'descRu' };
     return fieldMap[currentLang];
   };
 

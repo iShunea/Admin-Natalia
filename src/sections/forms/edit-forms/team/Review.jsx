@@ -8,8 +8,6 @@ import ImageDisplay from 'components/ImageDisplay';
 // ==============================|| VALIDATION WIZARD - REVIEW  ||============================== //
 
 export default function Review({ data }) {
-  console.log(data.imageLabelSrc);
-
   return (
     <>
       <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
@@ -19,79 +17,49 @@ export default function Review({ data }) {
         <Grid item xs={12}>
           <Stack spacing={1}>
             <Typography variant="h6" gutterBottom>
-              Meta description
+              Name
             </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.metaDescription}
-            </Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <Stack spacing={1}>
-            <Typography variant="h6" gutterBottom>
-              Meta keywords
-            </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.metaKeywords}
+            <Typography variant="body1" gutterBottom>
+              {data.name}
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>
           <Stack spacing={1}>
             <Typography variant="h6" gutterBottom>
-              Full Name of member
+              Role / Specialization
             </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.fullName}
-            </Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <Stack spacing={1}>
-            <Typography variant="h6" gutterBottom>
-              Job
-            </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.job}
+            <Typography variant="body1" gutterBottom>
+              {data.role}
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>
           <Stack spacing={1}>
             <Typography variant="h6" gutterBottom>
-              Portrait image of member
+              Bio / Description
             </Typography>
-            <ImageDisplay file={data.imageSrc} />
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <Stack spacing={1}>
-            <Typography variant="h6" gutterBottom>
-              Facebook link
-            </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.socialMedia?.facebook}
+            <Typography variant="body1" gutterBottom>
+              {data.bio}
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>
           <Stack spacing={1}>
             <Typography variant="h6" gutterBottom>
-              Linkedin link
+              Display Order
             </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.socialMedia?.linkedin}
+            <Typography variant="body1" gutterBottom>
+              {data.orderIndex}
             </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>
           <Stack spacing={1}>
             <Typography variant="h6" gutterBottom>
-              Twitter link
+              Member Photo
             </Typography>
-            <Typography variant="body" gutterBottom>
-              {data.socialMedia?.twitter}
-            </Typography>
+            <ImageDisplay file={data.imageUrl} />
           </Stack>
         </Grid>
       </Grid>

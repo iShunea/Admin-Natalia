@@ -13,47 +13,31 @@ import * as yup from 'yup';
 // project-imports
 import AnimateButton from 'components/@extended/AnimateButton';
 import DragDropFileUpload from 'components/DragDropFileUpload';
-import returnImageObject from 'api/fetchData';
-import { useEffect, useState } from 'react';
 
 const validationSchema = yup.object({
-  imageSrc: yup
+  imageUrl: yup
     .mixed()
-    .required('Image is required')
+    .nullable()
     .test('fileType', 'Only image files are allowed', (value) => {
-      return value && value.type && value.type.startsWith('image/');
+      if (!value) return true;
+      // Allow string URLs (existing images) or File objects
+      if (typeof value === 'string') return true;
+      return value.type && value.type.startsWith('image/');
     })
 });
 
-// ==============================|| VALIDATION WIZARD - TEXT  ||============================== //
-export default function ImageForm({ data, setData, handleNext, handleBack }) {
-  const [initialValues, setInitialValues] = useState({
-    imageSrc: null
-  });
-
-  useEffect(() => {
-    const fetchInitialValues = async () => {
-      const imageSrc = await returnImageObject(data.imageSrc);
-
-      setInitialValues({
-        imageSrc
-      });
-    };
-
-    fetchInitialValues();
-  }, [data]);
-
+// ==============================|| VALIDATION WIZARD - IMAGE  ||============================== //
+export default function ImageForm({ data, setData, handleNext, handleBack, setErrorIndex }) {
   const formik = useFormik({
-    initialValues: initialValues,
+    initialValues: {
+      imageUrl: data.imageUrl || null
+    },
     validationSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const resolvedValues = {
-        imageSrc: await values.imageSrc
-      };
       setData({
         ...data,
-        ...resolvedValues
+        imageUrl: values.imageUrl
       });
       handleNext();
     }
@@ -62,14 +46,18 @@ export default function ImageForm({ data, setData, handleNext, handleBack }) {
   return (
     <>
       <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
-        Images of the page
+        Team Member Photo
       </Typography>
       <form onSubmit={formik.handleSubmit} id="validation-forms">
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <Stack spacing={1}>
-              <InputLabel>Portrait image of member</InputLabel>
-              <DragDropFileUpload formik={formik} name="imageSrc" />
+              <InputLabel>Member photo</InputLabel>
+              <DragDropFileUpload
+                formik={formik}
+                name="imageUrl"
+                existingImageUrl={typeof data.imageUrl === 'string' ? data.imageUrl : null}
+              />
             </Stack>
           </Grid>
           <Grid item xs={12}>
@@ -78,7 +66,7 @@ export default function ImageForm({ data, setData, handleNext, handleBack }) {
                 Back
               </Button>
               <AnimateButton>
-                <Button variant="contained" type="submit" sx={{ my: 3, ml: 1 }} onClick={() => setErrorIndex(1)}>
+                <Button variant="contained" type="submit" sx={{ my: 3, ml: 1 }} onClick={() => setErrorIndex && setErrorIndex(1)}>
                   Next
                 </Button>
               </AnimateButton>
@@ -94,5 +82,6 @@ ImageForm.propTypes = {
   data: PropTypes.any,
   setData: PropTypes.func,
   handleNext: PropTypes.func,
+  handleBack: PropTypes.func,
   setErrorIndex: PropTypes.func
 };

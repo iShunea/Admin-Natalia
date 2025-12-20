@@ -19,7 +19,7 @@ export default function Review({ data }) {
   };
 
   const getDescription = () => {
-    const map = { en: data.descriptionEn, ro: data.descriptionRo, ru: data.descriptionRu };
+    const map = { en: data.descEn, ro: data.descRo, ru: data.descRu };
     return map[currentLang] || '-';
   };
 

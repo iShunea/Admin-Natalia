@@ -94,19 +94,38 @@ export default function EditTeamPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const retrieveArticles = await axiosInstance.get('/api/team-members/' + idPage);
-        if (retrieveArticles.status === 200) {
-          console.log(retrieveArticles);
-          setData(retrieveArticles.data);
+        console.log('Fetching team member with ID:', idPage);
+        const response = await axiosInstance.get('/api/team-members/' + idPage);
+        console.log('Team member response:', response);
+        if (response.status === 200) {
+          console.log('Team member data:', response.data);
+          setData(response.data);
         } else {
-          console.error('Failed to retrieve team page');
+          console.error('Failed to retrieve team member');
         }
       } catch (error) {
-        console.error('Error fetching team page:', error);
+        console.error('Error fetching team member:', error);
+        console.error('Error response:', error.response);
+        // Try alternative endpoint if 404
+        if (error.response?.status === 404) {
+          console.log('Trying to fetch from /api/team endpoint...');
+          try {
+            const allMembers = await axiosInstance.get('/api/team-members');
+            const member = allMembers.data.find(m => m._id === idPage || m.id === idPage);
+            if (member) {
+              console.log('Found team member:', member);
+              setData(member);
+            }
+          } catch (err) {
+            console.error('Error fetching all team members:', err);
+          }
+        }
       }
     };
 
-    fetchData();
+    if (idPage) {
+      fetchData();
+    }
   }, [idPage]);
 
   return (

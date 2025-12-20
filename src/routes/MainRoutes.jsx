@@ -11,6 +11,7 @@ import FormEditJobs from 'pages/edit-form-grids/jobs';
 import FormEditTeam from 'pages/edit-form-grids/team';
 import FormEditWorks from 'pages/edit-form-grids/works';
 import FormEditSocialMedia from 'pages/edit-form-grids/social-media';
+import FormEditBeforeAfter from 'pages/edit-form-grids/before-after';
 
 // // render - dashboard
 // const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
@@ -66,6 +67,7 @@ const FormEditBlog = Loadable(lazy(() => import('pages/edit-form-grids/blogs.jsx
 const FormEditServices = Loadable(lazy(() => import('pages/edit-form-grids/services.jsx')));
 const FormTestimonials = Loadable(lazy(() => import('pages/forms/testimonials')));
 const FormSocialMedia = Loadable(lazy(() => import('pages/forms/social-media')));
+const FormBeforeAfter = Loadable(lazy(() => import('pages/forms/before-after')));
 
 const ReactTableServices = Loadable(lazy(() => import('pages/tables/services-sorting')));
 const ReactTableJobs = Loadable(lazy(() => import('pages/tables/jobs-sorting')));
@@ -74,6 +76,7 @@ const ReactTableBlogs = Loadable(lazy(() => import('pages/tables/blogs-sorting')
 const ReactTableWorks = Loadable(lazy(() => import('pages/tables/works-sorting')));
 const ReactTableTestimonials = Loadable(lazy(() => import('pages/tables/testimonials-sorting')));
 const ReactTableSocialMedia = Loadable(lazy(() => import('pages/tables/social-media-sorting')));
+const ReactTableBeforeAfter = Loadable(lazy(() => import('pages/tables/before-after-sorting')));
 
 // render - charts & map
 const ChartApexchart = Loadable(lazy(() => import('pages/charts/apexchart')));
@@ -307,6 +310,10 @@ const MainRoutes = {
               element: <FormSocialMedia />
             },
             {
+              path: 'before-after',
+              element: <FormBeforeAfter />
+            },
+            {
               path: 'edit',
               children: [
                 {
@@ -332,6 +339,10 @@ const MainRoutes = {
                 {
                   path: 'social-media/:id',
                   element: <FormEditSocialMedia />
+                },
+                {
+                  path: 'before-after/:id',
+                  element: <FormEditBeforeAfter />
                 }
               ]
             }
@@ -367,6 +378,10 @@ const MainRoutes = {
             {
               path: 'social-media',
               element: <ReactTableSocialMedia />
+            },
+            {
+              path: 'before-after',
+              element: <ReactTableBeforeAfter />
             }
           ]
         },

@@ -18,21 +18,17 @@ export const endpoints = {
 };
 
 export function useGetCustomer() {
-  const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.list, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  });
-
+  // Disabled - no backend endpoint for customers
+  // Return empty data instead of making API calls
   const memoizedValue = useMemo(
     () => ({
-      customers: data?.customers,
-      customersLoading: isLoading,
-      customersError: error,
-      customersValidating: isValidating,
-      customersEmpty: !isLoading && !data?.customers?.length
+      customers: [],
+      customersLoading: false,
+      customersError: null,
+      customersValidating: false,
+      customersEmpty: true
     }),
-    [data, error, isLoading, isValidating]
+    []
   );
 
   return memoizedValue;

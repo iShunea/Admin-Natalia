@@ -4,9 +4,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 
-const CharacterCounter = ({ current = 0, max = 160, label = 'Characters', showProgress = true }) => {
-  const percentage = (current / max) * 100;
-  const isOverLimit = current > max;
+const CharacterCounter = ({ current, value, max, maxLength, label = 'Characters', showProgress = true }) => {
+  // Support both prop naming conventions
+  const actualCurrent = current ?? (value ? value.length : 0);
+  const actualMax = maxLength ?? max ?? 160;
+  const percentage = (actualCurrent / actualMax) * 100;
+  const isOverLimit = actualCurrent > actualMax;
   const isNearLimit = percentage >= 90 && !isOverLimit;
 
   const getColor = () => {
@@ -21,22 +24,22 @@ const CharacterCounter = ({ current = 0, max = 160, label = 'Characters', showPr
         <Typography variant="caption" color="text.secondary">
           {label}
         </Typography>
-        <Typography 
-          variant="caption" 
-          sx={{ 
+        <Typography
+          variant="caption"
+          sx={{
             fontWeight: 600,
             color: isOverLimit ? 'error.main' : isNearLimit ? 'warning.main' : 'text.secondary'
           }}
         >
-          {current} / {max}
-          {isOverLimit && ` (${current - max} over limit)`}
+          {actualCurrent} / {actualMax}
+          {isOverLimit && ` (${actualCurrent - actualMax} over limit)`}
         </Typography>
       </Box>
-      
+
       {showProgress && (
-        <LinearProgress 
-          variant="determinate" 
-          value={Math.min(percentage, 100)} 
+        <LinearProgress
+          variant="determinate"
+          value={Math.min(percentage, 100)}
           color={getColor()}
           sx={{ height: 4, borderRadius: 2 }}
         />
@@ -47,7 +50,9 @@ const CharacterCounter = ({ current = 0, max = 160, label = 'Characters', showPr
 
 CharacterCounter.propTypes = {
   current: PropTypes.number,
+  value: PropTypes.string,
   max: PropTypes.number,
+  maxLength: PropTypes.number,
   label: PropTypes.string,
   showProgress: PropTypes.bool
 };

@@ -22,7 +22,7 @@ const returnImageObject = (value) => {
     return value;
   }
 
-  if (value && value.startsWith('/images')) {
+  if (value && typeof value === 'string' && value.startsWith('/')) {
     return fetchFile(value);
   }
 

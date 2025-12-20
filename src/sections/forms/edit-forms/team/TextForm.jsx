@@ -15,13 +15,10 @@ import * as yup from 'yup';
 import AnimateButton from 'components/@extended/AnimateButton';
 
 const validationSchema = yup.object({
-  fullName: yup.string().required('Full Name is required'),
-  metaDescription: yup.string().required('Meta description is required'),
-  metaKeywords: yup.string().required('Meta keywords is required'),
-  job: yup.string().required('Job is required'),
-  facebook: yup.string().required('Facebook link is required'),
-  linkedin: yup.string().required('LinkedIn link is required'),
-  twitter: yup.string().required('Twitter link is required')
+  name: yup.string().required('Name is required'),
+  role: yup.string().required('Role is required'),
+  bio: yup.string().required('Bio is required'),
+  orderIndex: yup.number().required('Order Index is required').min(0)
 });
 
 // ==============================|| VALIDATION WIZARD - TEXT  ||============================== //
@@ -29,28 +26,20 @@ const validationSchema = yup.object({
 export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
   const formik = useFormik({
     initialValues: {
-      fullName: data.fullName,
-      job: data.job,
-      metaDescription: data.metaDescription ?? '',
-      metaKeywords: data.metaKeywords ?? '',
-      facebook: data.socialMedia && data.socialMedia.facebook ? data.socialMedia.facebook : '',
-      linkedin: data.socialMedia && data.socialMedia.linkedin ? data.socialMedia.linkedin : '',
-      twitter: data.socialMedia && data.socialMedia.twitter ? data.socialMedia.twitter : ''
+      name: data.name ?? '',
+      role: data.role ?? '',
+      bio: data.bio ?? '',
+      orderIndex: data.orderIndex ?? 0
     },
     enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
       setData({
         ...data,
-        fullName: values.fullName,
-        job: values.job,
-        metaDescription: values.metaDescription,
-        metaKeywords: values.metaKeywords,
-        socialMedia: {
-          facebook: values.facebook,
-          linkedin: values.linkedin,
-          twitter: values.twitter
-        }
+        name: values.name,
+        role: values.role,
+        bio: values.bio,
+        orderIndex: values.orderIndex
       });
       handleNext();
     }
@@ -59,22 +48,55 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
   return (
     <>
       <Typography variant="h5" gutterBottom sx={{ mb: 2 }}>
-        Text Information on page
+        Team Member Information
       </Typography>
       <form onSubmit={formik.handleSubmit} id="validation-forms">
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Stack spacing={1}>
-              <InputLabel>Meta description</InputLabel>
+              <InputLabel>Name</InputLabel>
               <TextField
-                id="metaDescription"
-                name="metaDescription"
-                placeholder="Meta description *"
+                id="name"
+                name="name"
+                placeholder="Full name *"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+                fullWidth
+                autoComplete="off"
+              />
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack spacing={1}>
+              <InputLabel>Role / Specialization</InputLabel>
+              <TextField
+                id="role"
+                name="role"
+                placeholder="Role or specialization (e.g., Periodontist) *"
+                value={formik.values.role}
+                onChange={formik.handleChange}
+                error={formik.touched.role && Boolean(formik.errors.role)}
+                helperText={formik.touched.role && formik.errors.role}
+                fullWidth
+                autoComplete="off"
+              />
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack spacing={1}>
+              <InputLabel>Bio / Description</InputLabel>
+              <TextField
+                id="bio"
+                name="bio"
+                placeholder="Bio or short description *"
                 multiline
-                value={formik.values.metaDescription}
+                rows={4}
+                value={formik.values.bio}
                 onChange={formik.handleChange}
-                error={formik.touched.metaDescription && Boolean(formik.errors.metaDescription)}
-                helperText={formik.touched.metaDescription && formik.errors.metaDescription}
+                error={formik.touched.bio && Boolean(formik.errors.bio)}
+                helperText={formik.touched.bio && formik.errors.bio}
                 fullWidth
                 autoComplete="off"
               />
@@ -82,97 +104,16 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
           </Grid>
           <Grid item xs={12}>
             <Stack spacing={1}>
-              <InputLabel>Meta keywords</InputLabel>
+              <InputLabel>Display Order</InputLabel>
               <TextField
-                id="metaKeywords"
-                name="metaKeywords"
-                placeholder="Meta keywords *"
-                multiline
-                value={formik.values.metaKeywords}
+                id="orderIndex"
+                name="orderIndex"
+                placeholder="Order index (0, 1, 2...) *"
+                type="number"
+                value={formik.values.orderIndex}
                 onChange={formik.handleChange}
-                error={formik.touched.metaKeywords && Boolean(formik.errors.metaKeywords)}
-                helperText={formik.touched.metaKeywords && formik.errors.metaKeywords}
-                fullWidth
-                autoComplete="off"
-              />
-            </Stack>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Stack spacing={1}>
-              <InputLabel>Full Name</InputLabel>
-              <TextField
-                id="fullName"
-                name="fullName"
-                placeholder="Full Name *"
-                value={formik.values.fullName}
-                onChange={formik.handleChange}
-                error={formik.touched.fullName && Boolean(formik.errors.fullName)}
-                helperText={formik.touched.fullName && formik.errors.fullName}
-                fullWidth
-                autoComplete="off"
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Stack spacing={1}>
-              <InputLabel>Job</InputLabel>
-              <TextField
-                id="job"
-                name="job"
-                placeholder="Job *"
-                value={formik.values.job}
-                onChange={formik.handleChange}
-                error={formik.touched.job && Boolean(formik.errors.job)}
-                helperText={formik.touched.job && formik.errors.job}
-                fullWidth
-                autoComplete="off"
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Stack spacing={1}>
-              <InputLabel>Facebook Link</InputLabel>
-              <TextField
-                id="facebook"
-                name="facebook"
-                placeholder="Facebook Link *"
-                value={formik.values.facebook}
-                onChange={formik.handleChange}
-                error={formik.touched.facebook && Boolean(formik.errors.facebook)}
-                helperText={formik.touched.facebook && formik.errors.facebook}
-                fullWidth
-                autoComplete="off"
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Stack spacing={1}>
-              <InputLabel>Linkedin link</InputLabel>
-              <TextField
-                id="linkedin"
-                name="linkedin"
-                placeholder="Linkedin link *"
-                value={formik.values.linkedin}
-                onChange={formik.handleChange}
-                error={formik.touched.linkedin && Boolean(formik.errors.linkedin)}
-                helperText={formik.touched.linkedin && formik.errors.linkedin}
-                fullWidth
-                autoComplete="off"
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Stack spacing={1}>
-              <InputLabel>Twitter Link</InputLabel>
-              <TextField
-                id="twitter"
-                name="twitter"
-                placeholder="Twitter Link *"
-                value={formik.values.twitter}
-                onChange={formik.handleChange}
-                error={formik.touched.twitter && Boolean(formik.errors.twitter)}
-                helperText={formik.touched.twitter && formik.errors.twitter}
+                error={formik.touched.orderIndex && Boolean(formik.errors.orderIndex)}
+                helperText={formik.touched.orderIndex && formik.errors.orderIndex}
                 fullWidth
                 autoComplete="off"
               />
