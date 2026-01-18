@@ -22,8 +22,15 @@ const returnImageObject = (value) => {
     return value;
   }
 
-  if (value && typeof value === 'string' && value.startsWith('/')) {
-    return fetchFile(value);
+  if (value && typeof value === 'string') {
+    // For relative paths, convert to File object
+    if (value.startsWith('/')) {
+      return fetchFile(value);
+    }
+    // For absolute URLs (R2/external), return as-is (string)
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      return value;
+    }
   }
 
   return null;

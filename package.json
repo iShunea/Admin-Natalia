@@ -1,6 +1,6 @@
 {
-  "name": "able-pro-material-react",
-  "version": "9.2.1",
+  "name": "admin-natalia-website",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.1.3",

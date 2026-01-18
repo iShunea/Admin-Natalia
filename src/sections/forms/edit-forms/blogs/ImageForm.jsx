@@ -21,42 +21,49 @@ const validationSchema = yup.object({
     .mixed()
     .required('Image is required')
     .test('fileType', 'Only image files are allowed', (value) => {
+      // Allow existing image URLs (strings) or new image files
+      if (typeof value === 'string') return true;
       return value && value.type && value.type.startsWith('image/');
     }),
   carouselImagePath1: yup
     .mixed()
     .required('Image is required')
     .test('fileType', 'Only image files are allowed', (value) => {
+      if (typeof value === 'string') return true;
       return value && value.type && value.type.startsWith('image/');
     }),
   carouselImagePath2: yup
     .mixed()
     .required('Image is required')
     .test('fileType', 'Only image files are allowed', (value) => {
+      if (typeof value === 'string') return true;
       return value && value.type && value.type.startsWith('image/');
     }),
   carouselImagePath3: yup
     .mixed()
     .required('Image is required')
     .test('fileType', 'Only image files are allowed', (value) => {
+      if (typeof value === 'string') return true;
       return value && value.type && value.type.startsWith('image/');
     }),
   carouselImagePath4: yup
     .mixed()
     .required('Image is required')
     .test('fileType', 'Only image files are allowed', (value) => {
+      if (typeof value === 'string') return true;
       return value && value.type && value.type.startsWith('image/');
     }),
   firstSubheadingImage: yup
     .mixed()
     .required('Image is required')
     .test('fileType', 'Only image files are allowed', (value) => {
+      if (typeof value === 'string') return true;
       return value && value.type && value.type.startsWith('image/');
     })
 });
 
 // ==============================|| VALIDATION WIZARD - TEXT  ||============================== //
-export default function ImageForm({ data, setData, handleNext, handleBack }) {
+export default function ImageForm({ data, setData, handleNext, handleBack, setErrorIndex }) {
   const [initialValues, setInitialValues] = useState({
     titleImagePath: null,
     carouselImagePath1: null,
