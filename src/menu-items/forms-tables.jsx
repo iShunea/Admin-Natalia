@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { Book, PasswordCheck, Next, RowVertical, CpuCharge, TableDocument, Subtitle } from 'iconsax-react';
+import { Book, PasswordCheck, Next, RowVertical, CpuCharge, TableDocument, Subtitle, Call } from 'iconsax-react';
 
 // type
 
@@ -14,14 +14,15 @@ const icons = {
   layout: RowVertical,
   plugins: CpuCharge,
   reactTables: TableDocument,
-  muiTables: Subtitle
+  muiTables: Subtitle,
+  contact: Call
 };
 
 // ==============================|| MENU ITEMS - FORMS & TABLES ||============================== //
 
 const formsTables = {
-  id: 'group-cristalex-management',
-  title: <FormattedMessage id="CristAlex Dent Management" />,
+  id: 'group-natalia-sargu-management',
+  title: <FormattedMessage id="Natalia Sargu Management" />,
   icon: icons.formsTable,
   type: 'group',
   children: [
@@ -135,24 +136,60 @@ const formsTables = {
         }
       ]
     },
+    // {
+    //   id: 'before-after-management',
+    //   title: <FormattedMessage id="Before/After Gallery" />,
+    //   type: 'collapse',
+    //   icon: icons.wizard,
+    //   children: [
+    //     {
+    //       id: 'add-before-after',
+    //       title: <FormattedMessage id="Add Before/After" />,
+    //       type: 'item',
+    //       url: '/forms/before-after',
+    //       icon: icons.wizard
+    //     },
+    //     {
+    //       id: 'list-before-after',
+    //       title: <FormattedMessage id="Before/After List" />,
+    //       type: 'item',
+    //       url: '/tables/before-after',
+    //       icon: icons.reactTables
+    //     }
+    //   ]
+    // },
     {
-      id: 'before-after-management',
-      title: <FormattedMessage id="Before/After Gallery" />,
+      id: 'about-page-management',
+      title: <FormattedMessage id="About Page" />,
+      type: 'item',
+      url: '/forms/about-section',
+      icon: icons.wizard
+    },
+    {
+      id: 'contacts-management',
+      title: <FormattedMessage id="Contact Information" />,
+      type: 'item',
+      url: '/forms/contacts',
+      icon: icons.contact
+    },
+    {
+      id: 'session-types-management',
+      title: <FormattedMessage id="Session Types" />,
       type: 'collapse',
       icon: icons.wizard,
       children: [
         {
-          id: 'add-before-after',
-          title: <FormattedMessage id="Add Before/After" />,
+          id: 'add-session-type',
+          title: <FormattedMessage id="Add Session Type" />,
           type: 'item',
-          url: '/forms/before-after',
+          url: '/forms/session-types',
           icon: icons.wizard
         },
         {
-          id: 'list-before-after',
-          title: <FormattedMessage id="Before/After List" />,
+          id: 'list-session-types',
+          title: <FormattedMessage id="Session Types List" />,
           type: 'item',
-          url: '/tables/before-after',
+          url: '/tables/session-types',
           icon: icons.reactTables
         }
       ]

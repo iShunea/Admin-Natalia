@@ -26,7 +26,8 @@
       "Bash(npm audit:*)",
       "Bash(timeout 5 tail:*)",
       "Bash(curl:*)",
-      "Read(//c/Users/ishun/OneDrive/Рабочий стол/Natlai Sargu - website/**)"
+      "Read(//c/Users/ishun/OneDrive/Рабочий стол/Natlai Sargu - website/**)",
+      "Bash(git remote set-url:*)"
     ]
   }
 }

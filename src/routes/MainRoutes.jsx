@@ -68,6 +68,10 @@ const FormEditServices = Loadable(lazy(() => import('pages/edit-form-grids/servi
 const FormTestimonials = Loadable(lazy(() => import('pages/forms/testimonials')));
 const FormSocialMedia = Loadable(lazy(() => import('pages/forms/social-media')));
 const FormBeforeAfter = Loadable(lazy(() => import('pages/forms/before-after')));
+const FormContacts = Loadable(lazy(() => import('pages/forms/contacts')));
+const FormSessionTypes = Loadable(lazy(() => import('pages/forms/session-types')));
+const FormEditSessionType = Loadable(lazy(() => import('pages/edit-form-grids/session-types')));
+const FormAboutSection = Loadable(lazy(() => import('pages/forms/about-section')));
 
 const ReactTableServices = Loadable(lazy(() => import('pages/tables/services-sorting')));
 const ReactTableJobs = Loadable(lazy(() => import('pages/tables/jobs-sorting')));
@@ -76,7 +80,9 @@ const ReactTableBlogs = Loadable(lazy(() => import('pages/tables/blogs-sorting')
 const ReactTableWorks = Loadable(lazy(() => import('pages/tables/works-sorting')));
 const ReactTableTestimonials = Loadable(lazy(() => import('pages/tables/testimonials-sorting')));
 const ReactTableSocialMedia = Loadable(lazy(() => import('pages/tables/social-media-sorting')));
+const ReactTableSessionTypes = Loadable(lazy(() => import('pages/tables/session-types-sorting')));
 const ReactTableBeforeAfter = Loadable(lazy(() => import('pages/tables/before-after-sorting')));
+const ReactTableAboutSections = Loadable(lazy(() => import('pages/tables/about-sections-sorting')));
 
 // render - charts & map
 const ChartApexchart = Loadable(lazy(() => import('pages/charts/apexchart')));
@@ -314,6 +320,18 @@ const MainRoutes = {
               element: <FormBeforeAfter />
             },
             {
+              path: 'contacts',
+              element: <FormContacts />
+            },
+            {
+              path: 'session-types',
+              element: <FormSessionTypes />
+            },
+            {
+              path: 'about-section',
+              element: <FormAboutSection />
+            },
+            {
               path: 'edit',
               children: [
                 {
@@ -343,6 +361,10 @@ const MainRoutes = {
                 {
                   path: 'before-after/:id',
                   element: <FormEditBeforeAfter />
+                },
+                {
+                  path: 'session-type/:id',
+                  element: <FormEditSessionType />
                 }
               ]
             }
@@ -382,6 +404,14 @@ const MainRoutes = {
             {
               path: 'before-after',
               element: <ReactTableBeforeAfter />
+            },
+            {
+              path: 'session-types',
+              element: <ReactTableSessionTypes />
+            },
+            {
+              path: 'about-sections',
+              element: <ReactTableAboutSections />
             }
           ]
         },
