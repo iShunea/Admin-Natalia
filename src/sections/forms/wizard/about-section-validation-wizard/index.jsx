@@ -136,7 +136,10 @@ export default function AboutSectionWizard() {
             imageAltTextRo: response.data.imageAltTextRo || '',
             imageAltTextRu: response.data.imageAltTextRu || ''
           });
-          setExistingSectionId(response.data.id || response.data._id);
+          // Store both numeric id (if exists) and MongoDB _id
+          const sectionId = response.data.id || response.data._id;
+          setExistingSectionId(sectionId);
+          console.log('Loaded section with ID:', sectionId);
         } else {
           // Section doesn't exist, use default data
           resetSectionData();
@@ -230,7 +233,10 @@ export default function AboutSectionWizard() {
 
     try {
       setIsLoading(true);
-      await axiosInstance.delete(`/api/about-sections/${existingSectionId}`);
+      console.log('Deleting section with ID:', existingSectionId);
+
+      const response = await axiosInstance.delete(`/api/about-sections/${existingSectionId}`);
+      console.log('Delete response:', response.data);
 
       setSuccessMessage(`${currentSection.label} deleted successfully! Reset to default.`);
       setExistingSectionId(null);
@@ -246,6 +252,7 @@ export default function AboutSectionWizard() {
       });
       setActiveStep(0);
     } catch (error) {
+      console.error('Delete error:', error);
       setErrorMessage(error.response?.data?.error || 'Failed to delete section');
     } finally {
       setIsLoading(false);
