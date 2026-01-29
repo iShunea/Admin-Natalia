@@ -21,8 +21,8 @@ const icons = {
 // ==============================|| MENU ITEMS - FORMS & TABLES ||============================== //
 
 const formsTables = {
-  id: 'group-natalia-sargu-management',
-  title: <FormattedMessage id="Natalia Sargu Management" />,
+  id: 'group-easyreserv-business-management',
+  title: <FormattedMessage id="Easyreserv Business Management" />,
   icon: icons.formsTable,
   type: 'group',
   children: [
