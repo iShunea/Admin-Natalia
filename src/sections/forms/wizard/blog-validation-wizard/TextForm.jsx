@@ -123,15 +123,15 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
     }
   });
 
-  // Auto-generate Blog URL from English title
+  // Auto-generate Blog URL from Romanian title (for local SEO)
   useEffect(() => {
-    if (formik.values.blogTitleEn && !data.id) {
-      const blogUrl = generateBlogUrl(formik.values.blogTitleEn);
+    if (formik.values.blogTitleRo && !data.id) {
+      const blogUrl = generateBlogUrl(formik.values.blogTitleRo);
       if (blogUrl) {
         formik.setFieldValue('id', blogUrl);
       }
     }
-  }, [formik.values.blogTitleEn]);
+  }, [formik.values.blogTitleRo]);
 
   const handleImport = (importedData) => {
     Object.keys(importedData).forEach(key => {
@@ -164,15 +164,15 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
 
           <Grid item xs={12} sm={6}>
             <Stack spacing={1}>
-              <InputLabel>Page URL (Auto-generated from EN title)</InputLabel>
+              <InputLabel>Page URL (Auto-generat din titlul RO)</InputLabel>
               <TextField
                 id="id"
                 name="id"
-                placeholder="Blog/your-article-title"
+                placeholder="Blog/titlul-articolului"
                 value={formik.values.id}
                 onChange={formik.handleChange}
                 error={formik.touched.id && Boolean(formik.errors.id)}
-                helperText={formik.touched.id && formik.errors.id ? formik.errors.id : 'Automatically generated as Blog/title-slug from English title'}
+                helperText={formik.touched.id && formik.errors.id ? formik.errors.id : 'Generat automat ca Blog/titlu-slug din titlul românesc pentru SEO local'}
                 fullWidth
                 InputProps={{
                   readOnly: !data.id, // Read-only for new articles, editable for existing
