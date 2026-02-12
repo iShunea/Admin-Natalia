@@ -392,8 +392,7 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
                 <GooglePreview 
                   title={formik.values.blogTitleEn}
                   description={formik.values.metaDescriptionEn}
-                  url={`https://business.easyreserv.io/${formik.values.id || 'Blog/your-article-url'}`}
-                />
+\n                />
               </Grid>
             </>
           )}
@@ -574,8 +573,7 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
                 <GooglePreview 
                   title={formik.values.blogTitleRo}
                   description={formik.values.metaDescriptionRo}
-                  url={`https://business.easyreserv.io/${formik.values.id || 'Blog/your-article-url'}`}
-                />
+\n                />
               </Grid>
             </>
           )}
@@ -756,8 +754,7 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
                 <GooglePreview 
                   title={formik.values.blogTitleRu}
                   description={formik.values.metaDescriptionRu}
-                  url={`https://business.easyreserv.io/${formik.values.id || 'Blog/your-article-url'}`}
-                />
+\n                />
               </Grid>
             </>
           )}

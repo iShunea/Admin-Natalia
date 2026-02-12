@@ -4,14 +4,14 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-const GooglePreview = ({ title = '', description = '', url = 'https://business.easyreserv.io' }) => {
-  const displayTitle = title || 'Your Page Title | Easyreserv Business';
+const GooglePreview = ({ title = '', description = '', url = 'https://psihologonline.md' }) => {
+  const displayTitle = title || 'Your Page Title | Natalia Sargu';
   const displayDescription = description || 'Add a meta description to see how it appears in Google search results...';
   const displayUrl = url.replace(/^https?:\/\//, '');
 
   return (
-    <Stack spacing={1} sx={{ 
-      p: 2, 
+    <Stack spacing={1} sx={{
+      p: 2,
       bgcolor: 'background.paper',
       border: '1px solid',
       borderColor: 'divider',
@@ -20,11 +20,11 @@ const GooglePreview = ({ title = '', description = '', url = 'https://business.e
       <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, mb: 1 }}>
         Google SERP Preview
       </Typography>
-      
+
       <Box>
-        <Typography 
-          variant="h6" 
-          sx={{ 
+        <Typography
+          variant="h6"
+          sx={{
             color: '#1a0dab',
             fontSize: '20px',
             lineHeight: 1.3,
@@ -35,10 +35,10 @@ const GooglePreview = ({ title = '', description = '', url = 'https://business.e
         >
           {displayTitle}
         </Typography>
-        
-        <Typography 
-          variant="caption" 
-          sx={{ 
+
+        <Typography
+          variant="caption"
+          sx={{
             color: '#006621',
             fontSize: '14px',
             display: 'block',
@@ -47,17 +47,17 @@ const GooglePreview = ({ title = '', description = '', url = 'https://business.e
         >
           {displayUrl}
         </Typography>
-        
-        <Typography 
-          variant="body2" 
-          sx={{ 
+
+        <Typography
+          variant="body2"
+          sx={{
             color: '#545454',
             fontSize: '14px',
             lineHeight: 1.57
           }}
         >
-          {displayDescription.length > 160 
-            ? `${displayDescription.substring(0, 157)}...` 
+          {displayDescription.length > 160
+            ? `${displayDescription.substring(0, 157)}...`
             : displayDescription}
         </Typography>
       </Box>
