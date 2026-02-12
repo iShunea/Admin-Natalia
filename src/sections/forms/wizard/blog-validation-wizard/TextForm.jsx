@@ -392,7 +392,8 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
                 <GooglePreview 
                   title={formik.values.blogTitleEn}
                   description={formik.values.metaDescriptionEn}
-\n                />
+                  url={`https://psihologonline.md/${formik.values.id || 'Blog/your-article-url'}`}
+                />
               </Grid>
             </>
           )}
@@ -573,7 +574,8 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
                 <GooglePreview 
                   title={formik.values.blogTitleRo}
                   description={formik.values.metaDescriptionRo}
-\n                />
+                  url={`https://psihologonline.md/${formik.values.id || 'Blog/your-article-url'}`}
+                />
               </Grid>
             </>
           )}
@@ -754,7 +756,8 @@ export default function TextForm({ data, setData, handleNext, setErrorIndex }) {
                 <GooglePreview 
                   title={formik.values.blogTitleRu}
                   description={formik.values.metaDescriptionRu}
-\n                />
+                  url={`https://psihologonline.md/${formik.values.id || 'Blog/your-article-url'}`}
+                />
               </Grid>
             </>
           )}
